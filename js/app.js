@@ -85,8 +85,7 @@ const renderMainControls = ({ todos }) => {
 store.subscribe(renderMainControls)
 
 const renderTodos = ({ editingSelection, filter, todos }) => {
-  todoListing.textContent = ''
-  todoListing.appendChild(fragment(
+  todoListing.replaceChildren(fragment(
     getVisibleTodos({ filter, todos }).map(todo => {
       let { completed, id, title } = todo
 
@@ -195,16 +194,14 @@ const renderFooter = ({ filter, todos }) => {
   let completedTodos = todos.filter(todo => todo.completed)
   let uncompletedTodos = todos.filter(todo => !todo.completed)
 
-  todoCounter.textContent = ''
-  todoCounter.appendChild(fragment(
+  todoCounter.replaceChildren(fragment(
     strong(uncompletedTodos.length),
     uncompletedTodos.length === 1
       ? ' item left'
       : ' items left'
   ))
 
-  filtersList.textContent = ''
-  filtersList.appendChild(fragment(
+  filtersList.replaceChildren(fragment(
     li(a(
       {
         class: filter === null ? 'selected' : '',
