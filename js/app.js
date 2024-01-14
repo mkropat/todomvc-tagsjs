@@ -6,7 +6,6 @@ import {
   button,
   div,
   form,
-  fragment,
   input,
   label,
   li,
@@ -85,8 +84,8 @@ const renderMainControls = ({ todos }) => {
 store.subscribe(renderMainControls)
 
 const renderTodos = ({ editingSelection, filter, todos }) => {
-  todoListing.replaceChildren(fragment(
-    getVisibleTodos({ filter, todos }).map(todo => {
+  todoListing.replaceChildren(
+    ...getVisibleTodos({ filter, todos }).map(todo => {
       let { completed, id, title } = todo
 
       let startEditMode = async () => {
@@ -153,7 +152,7 @@ const renderTodos = ({ editingSelection, filter, todos }) => {
         ),
       )
     })
-  ))
+  )
 }
 
 store.subscribe(renderTodos)
@@ -194,14 +193,14 @@ const renderFooter = ({ filter, todos }) => {
   let completedTodos = todos.filter(todo => todo.completed)
   let uncompletedTodos = todos.filter(todo => !todo.completed)
 
-  todoCounter.replaceChildren(fragment(
+  todoCounter.replaceChildren(
     strong(uncompletedTodos.length),
     uncompletedTodos.length === 1
       ? ' item left'
       : ' items left'
-  ))
+  )
 
-  filtersList.replaceChildren(fragment(
+  filtersList.replaceChildren(
     li(a(
       {
         class: filter === null ? 'selected' : '',
@@ -223,7 +222,7 @@ const renderFooter = ({ filter, todos }) => {
       },
       'Completed'
     )),
-  ))
+  )
 
   clearCompletedButton.style.display = completedTodos.length ? '' : 'none'
   clearCompletedButton.onclick = clearCompleted
